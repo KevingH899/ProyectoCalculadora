@@ -66,14 +66,13 @@ def parse(tokens):
         token = tokens.pop()
         if token.type == 'NUMBER':
             return int(token.value)
-        elif token.type == 'LPAREN':
+        if token.type == 'LPAREN':
             value = parse_expression()
             if not tokens or tokens[-1].type != 'RPAREN':
                 raise SyntaxError("Operancion Incompleta")
             tokens.pop()
             return value
-        else:
-            raise SyntaxError("Operancion Incompleta")
+        raise SyntaxError("Operancion Incompleta")
     return parse_expression()
 # Diseño Calculadora
 class Calculadora:
