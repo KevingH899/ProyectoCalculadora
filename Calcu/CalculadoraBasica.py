@@ -48,32 +48,6 @@ def parse(tokens):
             elif op == 'MINUS':
                 total -= rhs
         return total
-    # * /
-    def parse_term():
-        total = parse_factor()
-        while tokens and tokens[-1].type in ('MULTI', 'DIVIDE'):
-            op = tokens.pop().type
-            rhs = parse_factor()
-            if op == 'MULTI':
-                total *= rhs
-            elif op == 'DIVIDE':
-                if rhs == 0:
-                    raise ValueError("Division con cero")
-                total /= rhs
-        return total
-    # ( )
-    def parse_factor():
-        token = tokens.pop()
-        if token.type == 'NUMBER':
-            return int(token.value)
-        elif token.type == 'LPAREN':
-            value = parse_expression()
-            if not tokens or tokens[-1].type != 'RPAREN':
-                raise SyntaxError("Operancion Incompleta")
-            tokens.pop()
-            return value
-        else:
-            raise SyntaxError("Operancion Incompleta")
     return parse_expression()
 # Diseño Calculadora
 class Calculadora:
